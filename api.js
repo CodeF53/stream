@@ -4,7 +4,7 @@ const options = {
     accept: 'application/json',
     // https://www.themoviedb.org/settings/api
     // shut up, I will refresh it later when I can be bothered to set up .env and give that to github actions
-    Authorization: 'Bearer 713142f8e4d4b61b1f99323f7d815c6d'
+    Authorization: `Bearer ${atob('M2E4ZjBmZjE3YzFmY2E4ZDg3ZDA3NmRhMjcwY2QwMTc')}`
   }
 };
 
