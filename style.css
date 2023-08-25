@@ -1,0 +1,50 @@
+/* dark mode default components */
+:root { color-scheme: dark; }
+/* black & center shit */
+body {
+  background-color: #090909;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  height: 100vh;
+  align-items: center;
+}
+/* font */
+body {
+  font-family: sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* logical sizing */
+* { box-sizing: border-box; }
+
+/* no default margins */
+h1, h2, h3, h4, h5, h6, p, span, a, strong, em, blockquote, cite, q, abbr, del, ins, mark, sub, sup, code, pre, kbd, var, samp, ol, ul {
+  margin: unset;
+}
+
+/* layout utils */
+.row { display: flex; flex-direction: row; }
+.col { display: flex; flex-direction: column; }
+.centerChildren {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.spaceBetween { justify-content: space-between; }
+.spaceAround { justify-content: space-around; }
+.spaceEvenly { justify-content: space-evenly; }
+.spacer { flex:1; }
+.hidden { visibility: hidden; }
+.gap0 { gap: 0.25rem; }
+.gap1 { gap: 0.50rem; }
+.gap2 { gap: 0.75rem; }
+.gap3 { gap: 1.00rem; }
+.gap4 { gap: 1.25rem; }
+.gap5 { gap: 1.50rem; }
+.gap6 { gap: 1.75rem; }
+.gap7 { gap: 2.00rem; }
