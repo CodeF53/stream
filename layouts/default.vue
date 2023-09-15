@@ -1,6 +1,7 @@
 <template>
   <div id="page" class="col">
     <Header />
+    <AdblockSuggestion />
 
     <slot />
 
