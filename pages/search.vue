@@ -25,6 +25,7 @@ async function updateSearchResults() {
 }
 
 onBeforeMount(updateSearchResults)
+watchEffect(updateSearchResults)
 </script>
 
 <template>
