@@ -14,15 +14,14 @@
   --f2: #918274;
 
   // accent
-  --af0: #d3869b;
+  --af0: hsl(344, 47%, 68%);
+  --af1: hsl(344, 36%, 62%);
+  --af2: hsl(344, 25%, 56%);
 }
 
 h1 {
   color: var(--af0);
   font-weight: 800;
-}
-body, .input, input, select, button {
-  color: var(--f0);
 }
 
 // dark!

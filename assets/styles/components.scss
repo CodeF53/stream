@@ -5,17 +5,24 @@
 .input, .inputWrapper, input, select, button {
   font-weight: 600;
   text-decoration: none;
+  color: var(--f0);
 
   border: unset;
+  outline: none;
+
   border-radius: var(--border-radius);
   padding: .5rem 1rem;
 
   background-color: var(--b200);
   &:hover, &:focus { background-color: var(--b250); }
-  &:active { background-color: var(--b150); }
-  &:disabled { background-color: var(--b150); }
+  &:active, &:disabled { background-color: var(--b150); }
 
-  outline: none;
+  &.accent {
+    color: var(--b100);
+    background-color: var(--af0);
+    &:hover, &:focus { background-color: var(--af1); }
+    &:active, &:disabled { background-color: var(--af2); }
+  }
 }
 .inputWrapper {
   display: flex;
