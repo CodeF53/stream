@@ -5,7 +5,7 @@ export default defineNuxtConfig({
 
   css: ['~/assets/styles/layout.scss', '~/assets/styles/misc.scss', '~/assets/styles/components.scss', '~/assets/styles/font.scss'],
 
-  modules: ['@nuxtjs/google-fonts', 'nuxt-svgo'],
+  modules: ['@nuxtjs/google-fonts', 'nuxt-svgo', '@vueuse/nuxt'],
   googleFonts: {
     families: { Inter: [200, 400, 600, 800] },
   },

@@ -53,7 +53,7 @@ onBeforeMount(updateContentDetails)
 <template>
   <main v-if="content" id="video" class="col gap4 centerChildren">
     <div id="vidContainer" class="centerChildren" :style="{ '--bkg': `url(https://image.tmdb.org/t/p/original/${content.backdrop_path})` }">
-      <iframe id="videoFrame" :src="src" allowfullscreen />
+      <Player :src="src" />
       <!-- TODO: auto(Next/Play) -->
       <!-- TODO: source selector -->
     </div>
