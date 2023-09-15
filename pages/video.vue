@@ -74,7 +74,7 @@ onBeforeMount(updateContentDetails)
           <!-- TODO: add remaining info -->
         </div>
       </div>
-      <div id="episodePicker" class="alignStart col gap1">
+      <div v-if="route.query.type === 'tv'" id="episodePicker" class="alignStart col gap1">
         <div class="row centerChildren spaceBetween gap1">
           <label>Season</label>
           <input v-model="season" type="number" min="1" :max="content.seasons.length" @change="episode = 1">
