@@ -38,6 +38,15 @@ interface Content {
 }
 const content: Ref<Content | undefined> = ref()
 
+const title = computed(() => {
+  if (!content.value)
+    return `${route.query.type} - Stream`
+  if (route.query.type === 'movie')
+    return `${content.value.name} - YEAR`
+  else
+    return `${content.value.name} - S${season.value}E${episode.value}`
+})
+
 async function updateContentDetails() {
   const { type, id } = route.query
 
@@ -51,6 +60,12 @@ onBeforeMount(updateContentDetails)
 </script>
 
 <template>
+  <Head>
+    <!-- TODO: better metadata -->
+    <!-- double-update issue, more specific description, perhaps some embed images -->
+    <Title>{{ title }}</Title>
+    <Meta name="description" :content="title" />
+  </Head>
   <main v-if="content" id="video" class="col gap4 centerChildren">
     <div id="vidContainer" class="centerChildren" :style="{ '--bkg': `url(https://image.tmdb.org/t/p/original/${content.backdrop_path})` }">
       <Player :src="src" />
@@ -75,14 +90,17 @@ onBeforeMount(updateContentDetails)
         </div>
       </div>
       <div v-if="route.query.type === 'tv'" id="episodePicker" class="alignStart col gap1">
+        <!-- TODO: refactor to dropdown -->
         <div class="row centerChildren spaceBetween gap1">
           <label>Season</label>
           <input v-model="season" type="number" min="1" :max="content.seasons.length" @change="episode = 1">
         </div>
+        <!-- TODO: refactor to array of buttons -->
         <div class="row centerChildren spaceBetween gap1">
           <label>Episode</label>
           <input v-model="episode" type="number" min="1" :max="content.seasons[season - 1].episode_count">
         </div>
+        <!-- TODO: next episode button -->
       </div>
     </div>
   </main>

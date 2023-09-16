@@ -29,6 +29,10 @@ watchEffect(updateSearchResults)
 </script>
 
 <template>
+  <Head>
+    <Title>Search - Stream</Title>
+    <Meta name="description" content="Find some shit you dumbass" />
+  </Head>
   <main id="search" class="centerChildren">
     <div id="results">
       <NuxtLink

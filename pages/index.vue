@@ -1,4 +1,8 @@
 <template>
+  <Head>
+    <Title>Home - Stream</Title>
+    <Meta name="description" content="A personal project streaming website" />
+  </Head>
   <main id="home" class="col gap2 centerChildren">
     <h1>Stream</h1>
     <p>Eventually I plan to put a recommended page here</p>
