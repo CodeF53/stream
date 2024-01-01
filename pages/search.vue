@@ -18,7 +18,7 @@ const results: Ref<Content[]> = ref([])
 async function updateSearchResults() {
   const query = route.query.query
 
-  const resp = await fetchMovieDB(`/search/multi?query=${query}&include_adult=true&language=en-US&page=1`)
+  const resp = await fetchMovieDB(`/search/multi?query=${query}&include_adult=false&language=en-US&page=1`)
   const data = await resp.json()
 
   results.value = data.results
