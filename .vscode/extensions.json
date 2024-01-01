@@ -2,6 +2,7 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "vue.vscode-typescript-vue-plugin",
-    "vue.volar"
+    "vue.volar",
+    "nuxtr.nuxt-vscode-extentions"
   ]
 }
