@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import _ from 'lodash'
-
 import { tvEpisodesTMDB, tvSeasonsTMDB } from '~/utils/tmdb'
 
 const route = useRoute()

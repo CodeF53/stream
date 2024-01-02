@@ -31,7 +31,5 @@ const { data, pending, error } = await useAsyncData(
     <strong>error</strong>
     {{ JSON.stringify(error) }}
   </p>
-  <p v-else-if="data" style="white-space: pre-wrap">
-    {{ JSON.stringify(data, null, '  ') }}
-  </p>
+  <Player v-else-if="data" :source="data" />
 </template>
