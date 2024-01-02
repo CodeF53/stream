@@ -23,6 +23,6 @@ Long term goals:
 
 ```bash
 bun install
-bun run dev # dev
+bun dev # dev
 bun generate; bunx serve .output/public # production
 ```

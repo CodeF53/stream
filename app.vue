@@ -1,3 +1,9 @@
+<script setup lang="ts">
+onBeforeMount(initConfig)
+</script>
+
 <template>
-  <div />
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>

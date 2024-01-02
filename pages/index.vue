@@ -1,0 +1,3 @@
+<template>
+  <BasicSearch />
+</template>
