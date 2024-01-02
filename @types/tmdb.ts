@@ -19,10 +19,7 @@ export interface SearchResultBase {
 
 export interface SearchResultPerson extends SearchResultBase {
   media_type: ContentTypes.PERSON
-  // This is very wrong because
-  // 1. incorrectly includes: backdrop_path, original_language, overview, poster_path, genre_ids, vote_average, vote_count
-  // 2. doesn't include: name, original_name, gender, known_for_department, profile_path, known_for
-  // Doesn't matter because it's only used for removing people from search results
+  // ...
 }
 
 export interface SearchResultShow extends SearchResultBase {
@@ -48,4 +45,28 @@ export interface SearchResults {
   results: SearchResult[]
   total_pages: number
   total_results: number
+}
+
+export interface SeasonShort {
+  id: number
+  name: string
+  season_number: number
+  // ...
+}
+
+export interface TVInfo {
+  seasons: SeasonShort[]
+  // ...
+}
+
+export interface EpisodeShort {
+  id: number
+  name: string
+  episode_number: number
+  // ...
+}
+
+export interface SeasonInfo {
+  episodes: EpisodeShort[]
+  // missing a lot, I don't care, I won't ever use it
 }

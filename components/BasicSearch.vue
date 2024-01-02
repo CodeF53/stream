@@ -8,10 +8,7 @@ const debouncedQuery = ref(query.value)
 const { data, pending, error } = await useAsyncData(
   'query',
   () => searchTMDB(query.value),
-  {
-    server: false,
-    watch: [debouncedQuery],
-  },
+  { server: false, watch: [debouncedQuery] },
 )
 
 const updateDebouncedQuery = useDebounce(() => debouncedQuery.value = query.value, 250)
@@ -35,7 +32,5 @@ watch(query, () => {
     <strong>error</strong>
     {{ JSON.stringify(error) }}
   </p>
-  <p v-else-if="data">
-    {{ JSON.stringify(data) }}
-  </p>
+  <SearchResult v-for="result in data" v-else-if="data" :key="result.tmdbId" :search-result="result" />
 </template>

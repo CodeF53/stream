@@ -6,4 +6,5 @@ export interface SearchResultData {
   poster: string
   title: string
   stars: number
+  year: number
 }
