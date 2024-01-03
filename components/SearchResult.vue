@@ -4,7 +4,8 @@ import type { SearchResultData } from '../@types/search'
 const { searchResult } = defineProps<{ searchResult: SearchResultData }>()
 const { stars, type, tmdbId, title, year } = searchResult
 
-const to = `\/${type}-${tmdbId}-${title}-${year}`
+const scrapeType = type === 'movie' ? 'movie' : 'show'
+const to = `\/${scrapeType}-${tmdbId}-${title}-${year}`
 </script>
 
 <template>

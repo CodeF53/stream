@@ -17,16 +17,28 @@ watch(selectedQuality, (newVal) => {
 </script>
 
 <template>
-  <span v-if="source.stream.type === 'hls'">Stream is in a weird format, get fucked</span>
+  <div id="player">
+    <span v-if="source.stream.type === 'hls'">Stream is in a weird format, get fucked</span>
 
-  <template v-else>
-    <video ref="video" style="max-width: calc(100vw - 2rem); max-height: calc(100vh - 2rem);" autoplay controls>
-      <source :src="qualities[selectedQuality]!.url" :type="`video/${qualities[selectedQuality]!.type}`">
-    </video>
-    <select v-model="selectedQuality">
-      <option v-for="(quality, i) in _.keys(qualities)" :key="i" :value="quality">
-        {{ quality }}p
-      </option>
-    </select>
-  </template>
+    <template v-else>
+      <video ref="video" autoplay controls>
+        <source :src="qualities[selectedQuality]!.url" :type="`video/${qualities[selectedQuality]!.type}`">
+      </video>
+      <select v-model="selectedQuality">
+        <option v-for="(quality, i) in _.keys(qualities)" :key="i" :value="quality">
+          {{ quality }}p
+        </option>
+      </select>
+    </template>
+  </div>
 </template>
+
+<style lang="scss">
+#player {
+  position: relative;
+  > video {
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>
