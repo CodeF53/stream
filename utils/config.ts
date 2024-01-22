@@ -1,11 +1,13 @@
-import type { PublicRuntimeConfig } from 'nuxt/schema'
+import { MovieDb } from 'moviedb-promise'
 
-export const config: PublicRuntimeConfig = {
-  tmdbKey: '',
+export const config: {
+  tmdb: undefined | MovieDb
+} = {
+  tmdb: undefined,
 }
 
 export function initConfig() {
   const publicConfig = useRuntimeConfig().public
-  for (const key in publicConfig)
-    config[key] = publicConfig[key]
+
+  config.tmdb = new MovieDb(publicConfig.tmdbKey)
 }

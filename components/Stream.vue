@@ -1,21 +1,26 @@
 <script lang="ts" setup>
 import type { RunOutput, ScrapeMedia } from '@movie-web/providers'
-import type { Episode, Season } from '~/@types/tv'
+import type { Episode, SimpleSeason } from 'moviedb-promise'
+import { providers } from '~/utils/providers'
 
-const props = defineProps<{ season?: Season, episode?: Episode }>()
+const props = defineProps<{ season?: SimpleSeason, episode?: Episode }>()
 const route = useRoute().params as Record<string, string>
 const { type, tmdbId, title, releaseYear } = route
 
-async function getStream(media: ScrapeMedia): Promise<RunOutput | null> {
-  if (media.type === 'show')
-    if (!media.season || !media.episode) return null
+async function getStream(media: ScrapeMedia, props: { season?: SimpleSeason, episode?: Episode }): Promise<RunOutput | null> {
+  if (media.type === 'show') {
+    if (!props.season || !props.episode) return null
+
+    media.season = { number: props.season.season_number!, tmdbId: props.season.id!.toString() }
+    media.episode = { number: props.episode.episode_number!, tmdbId: props.episode.id!.toString() }
+  }
 
   return await providers.runAll({ media })
 }
 
 const { data, pending, error } = await useAsyncData(
   'stream',
-  () => getStream({ ...props, type, tmdbId, title, releaseYear: Number(releaseYear) } as ScrapeMedia),
+  () => getStream({ type, tmdbId, title, releaseYear: Number(releaseYear) } as ScrapeMedia, props),
   { server: false, watch: [props] },
 )
 </script>

@@ -4,6 +4,6 @@ onBeforeMount(initConfig)
 
 <template>
   <NuxtLayout>
-    <NuxtPage />
+    <NuxtPage v-if="config.tmdb" />
   </NuxtLayout>
 </template>

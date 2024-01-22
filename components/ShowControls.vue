@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import _ from 'lodash'
+import { config } from '../utils/config'
 
 const route = useRoute()
 const tmdbId = route.params.tmdbId as string
@@ -12,17 +13,19 @@ const sNum = ref(Number(seQStr?.split(':')[0]) || 1)
 const eNum = ref(Number(seQStr?.split(':')[1]) || 1)
 
 // get all seasons
-const seasons = useAsyncData(
+const showInfo = useAsyncData(
   'showSeasons',
-  () => tvSeasonsTMDB(tmdbId),
+  () => config.tmdb!.tvInfo(tmdbId),
   { server: false, watch: [route] },
 ).data
 // get all episodes for current season
-const episodes = useAsyncData(
+const seasonInfo = useAsyncData(
   'showEpisodes',
-  () => tvEpisodesTMDB(tmdbId, sNum.value),
+  () => config.tmdb!.seasonInfo({ id: tmdbId, season_number: sNum.value }),
   { server: false, watch: [route, sNum] },
 ).data
+const seasons = computed(() => showInfo.value?.seasons)
+const episodes = computed(() => seasonInfo.value?.episodes)
 
 function setSeason(e: Event) {
   const newSeason = Number((e.target! as HTMLSelectElement).value)
@@ -35,10 +38,10 @@ function setEpisode(e: Event) {
 const nextSeasonEpisode = computed(() => {
   if (!seasons.value || !episodes.value) return false
   const maxEpisode = episodes.value!.length - 1
-  const maxSeason = _.maxBy(seasons.value!, 'number')!.number
+  const maxSeason = _.maxBy(seasons.value, 'season_number')!.season_number!
   let newS = sNum.value
   let newE = eNum.value + 1
-  if (newE > maxEpisode) {
+  if (newE > maxEpisode + 1) {
     newE = 1
     newS += 1
   }
@@ -59,15 +62,15 @@ function updateSE(newS: number, newE: number) {
 
 // keep outputs up to date
 watch([seasons, episodes], () => {
-  season.value = _.find(seasons.value, s => s.number === sNum.value)!
-  episode.value = _.find(episodes.value, s => s.number === eNum.value)!
+  season.value = _.find(seasons.value, s => s.season_number === sNum.value)!
+  episode.value = _.find(episodes.value, e => e.episode_number === eNum.value)!
 })
 </script>
 
 <template>
   <div id="showControls" class="panel">
     <select v-if="seasons" name="season" :value="sNum" @change="setSeason">
-      <option v-for="s in seasons" :key="s.tmdbId" :value="s.number" :name="s.name">
+      <option v-for="s in seasons" :key="s.id" :value="s.season_number" :name="s.name">
         {{ s.name }}
       </option>
     </select>
@@ -76,8 +79,8 @@ watch([seasons, episodes], () => {
     </select>
 
     <select v-if="episodes" name="episode" :value="eNum" @change="setEpisode">
-      <option v-for="e in episodes" :key="e.tmdbId" :value="e.number" :name="e.name">
-        {{ e.number }} - {{ e.name }}
+      <option v-for="e in episodes" :key="e.id" :value="e.episode_number" :name="e.name">
+        {{ e.episode_number }} - {{ e.name }}
       </option>
     </select>
     <select v-else disabled>

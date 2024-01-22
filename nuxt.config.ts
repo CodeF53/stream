@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ['nuxt-lodash'],
+  modules: ['nuxt-lodash', '@vueuse/nuxt'],
 
   css: ['~/assets/styles/general.scss'],
   vite: { css: { preprocessorOptions: { scss: {
