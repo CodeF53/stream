@@ -1,8 +1,8 @@
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
-    "vue.vscode-typescript-vue-plugin",
-    "vue.volar",
-    "nuxtr.nuxt-vscode-extentions"
+    "shopify.ruby-lsp",
+    "exodiusstudios.comment-anchors",
+    "aaron-bond.better-comments"
   ]
 }

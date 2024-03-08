@@ -1,24 +1,21 @@
-# Nuxt dev/build outputs
-.output
-.data
-.nuxt
-.nitro
-.cache
-dist
-
-# Node dependencies
 node_modules
+# bundler config.
+/.bundle
 
-# Logs
-logs
-*.log
+# precompiled data
+/public
+/app/assets/builds
+# packages
+/node_modules
 
-# Misc
-.DS_Store
-.fleet
-.idea
+# logfiles and tempfiles.
+/log
+/tmp
 
-# Local env files
+# various secrets
+/config/master.key
 .env
-.env.*
 !.env.example
+
+# zone identifiers made by interacting with WSL filesystem in a weird manner
+*:Zone.Identifier

@@ -1,26 +1,63 @@
 {
-  // Nesting
-  "explorer.fileNesting.enabled": true,
-  "explorer.fileNesting.expand": false,
+  // file grouping
+  "explorer.fileNesting.enabled": true, // enable
+  "explorer.fileNesting.expand": false, // closed by default
   "explorer.fileNesting.patterns": {
-    "package.json": "bun.lockb",
-    "nuxt.config.ts": "tsconfig.json, eslint.config.js"
+    // examples for files not tracked by git
+    "*": "$(capture).example",
+    // group related things you generally don't need to care about
+    "README.md": "LICENSE",
+    "Gemfile": ".rubocop.yml, Gemfile.lock, .ruby-version, Rakefile, config.ru",
+    "package.json": "bun.lockb, eslint.config.js, bun.config.ts",
+    "application.rb": "boot.rb, environment.rb, puma.rb",
+    "bundle": "rails, rake"
+  },
+  // hide files that you shouldn't ever change or think about
+  "files.exclude": {
+    "{node_modules,log,tmp}": true,
+    "{Rakefile,config.ru,.ruby-version}": true,
+    "app/assets/builds/javascripts": true,
+    "config/{boot,environment,puma}.rb": true,
+    "bin/bundle": true
   },
 
   // Linting
-  "eslint.experimental.useFlatConfig": true,
   "prettier.enable": false,
   "editor.formatOnSave": false,
+  // ruby
+  "rubyLsp.formatter": "rubocop",
+  "[rb][ruby]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "Shopify.ruby-lsp"
+  },
+  "rubyLsp.enabledFeatures": {
+    "codeActions": true,
+    "diagnostics": true,
+    "documentHighlights": true,
+    "documentLink": false,
+    "documentSymbols": true,
+    "foldingRanges": true,
+    "formatting": true,
+    "hover": true,
+    "inlayHint": true,
+    "onTypeFormatting": true,
+    "selectionRanges": true,
+    "semanticHighlighting": true,
+    "completion": true,
+    "codeLens": true,
+    "definition": true,
+    "workspaceSymbol": true,
+    "references": true
+  },
+  // javascript
+  "eslint.experimental.useFlatConfig": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "never"
+    "source.organizeImports": "explicit"
   },
-  "eslint.validate": [
-    "javascript",
-    "typescript",
-    "vue",
-    "html",
-    "json",
-    "jsonc"
-  ]
+  "eslint.validate": ["javascript", "typescript", "json", "jsonc"],
+
+  // fix auto close tag for erb files
+  "auto-close-tag.activationOnLanguage": ["html", "html.erb"],
+  "auto-close-tag.fullMode": true
 }
