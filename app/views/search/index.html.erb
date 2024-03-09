@@ -1,0 +1,27 @@
+<% content_for :head do %>
+  <title>Stream - Search</title>
+<% end %>
+
+<h1>Stream - Search</h1>
+
+<%= form_with url: search_path, method: :get do |f| %>
+  <%= f.text_field :title, value: params[:title] %>
+
+  <%= field_set_tag 'Type' do %>
+    <%= f.label :type, 'All', value: 'all' %>
+    <%= f.radio_button :type, 'all', checked: params[:type].blank? || params[:type] == 'all' %>
+
+    <%= f.label :type, 'Shows', value: 'show' %>
+    <%= f.radio_button :type, 'show', checked: params[:type] == 'show' %>
+
+    <%= f.label :type, 'Movies', value: 'movie' %>
+    <%= f.radio_button :type, 'movie', checked: params[:type] == 'movie' %>
+  <% end %>
+
+  <%= f.submit 'Search', name: nil %>
+<% end %>
+
+<section>
+  <h2>Search Results:</h2>
+  <%= render partial: "/shared/media_list", locals: { entries: @search_results } %>
+</section>
