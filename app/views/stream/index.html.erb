@@ -1,0 +1,35 @@
+<% content_for :head do %>
+  <title>Stream - <%= @fancy_title %></title>
+<% end %>
+
+<%# TODO: use @scape_media to scrape for streams %>
+
+<h1>
+  <%= @fancy_title %>
+</h1>
+
+<details>
+  <summary><h2>Debug Info:</h2></summary>
+
+  <details>
+    <summary><h3>Media Info:</h3></summary>
+    <pre><%= JSON.pretty_generate(@media.except!(:seasons)) %></pre>
+  </details>
+
+  <% if @media.type == 'show' %>
+    <details>
+      <summary><h3>Season Info:</h3></summary>
+      <pre><%= JSON.pretty_generate(@season.except!('episodes')) %></pre>
+    </details>
+
+    <details>
+      <summary><h3>Episode Info:</h3></summary>
+      <pre><%= JSON.pretty_generate(@episode.except!('crew', 'guest_stars')) %></pre>
+    </details>
+  <% end %>
+
+  <details>
+    <summary><h3>Scrape Media:</h3></summary>
+    <pre><%= JSON.pretty_generate(@scrape_media) %></pre>
+  </details>
+</details>
