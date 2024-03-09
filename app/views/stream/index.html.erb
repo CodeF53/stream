@@ -3,10 +3,27 @@
 <% end %>
 
 <%# TODO: use @scape_media to scrape for streams %>
+<%# !: for now I am just going to be using vidsrc.to because its easier to implement %>
+
+<% if @media.type == 'movie' %>
+  <iframe src="https://vidsrc.to/embed/movie/<%= @scrape_media.tmdbId %>"></iframe>
+<% else %>
+  <iframe src="https://vidsrc.to/embed/tv/<%= "#{@scrape_media.tmdbId}/#{params[:s]}/#{params[:e]}" %>"></iframe>
+<% end %>
 
 <h1>
   <%= @fancy_title %>
 </h1>
+
+<% if @media.type == 'show' %>
+  <select onchange='Turbo.visit(`/show/<%= params[:id] %>/${this.value}/1`)'>
+    <%= options_for_select(@media.seasons.map { |s| s.fetch_values('name', 'season_number') }, params[:s]) %>
+  </select>
+
+  <select onchange='Turbo.visit(`/show/<%= "#{params[:id]}/#{params[:s]}" %>/${this.value}`)'>
+    <%= options_for_select(@season.episodes.map { |e| ["#{e.episode_number} - #{e.name}", e.episode_number] }, params[:e]) %>
+  </select>
+<% end %>
 
 <details>
   <summary><h2>Debug Info:</h2></summary>
