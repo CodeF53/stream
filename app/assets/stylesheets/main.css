@@ -2,3 +2,13 @@
   color-scheme: dark;
   font-family: sans-serif;
 }
+
+* { margin: 0 }
+
+.media_list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  & > li { max-width: 154px }
+}

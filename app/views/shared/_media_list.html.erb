@@ -1,0 +1,11 @@
+<ul class="media_list">
+  <% (entries || []).each do |media| %>
+    <li>
+      <a href="<%= media_path(type: media.type, id: media.id) %>">
+        <%= image_tag "https://image.tmdb.org/t/p/w154/#{media.poster_path}", width: 154, height: 231, alt: "#{media.title}'s poster" %>
+        <h3><%= media.title %></h3>
+        <p><%= media.type %> · <%= media.year %></p>
+      </a>
+    </li>
+  <% end %>
+</ul>
