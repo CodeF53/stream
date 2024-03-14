@@ -16,7 +16,7 @@ class StreamController < ApplicationController
 
   def set_media(type, id, season, episode)
     @media = Rails.cache.fetch "media-#{id}-#{type}", expires_in: 2.hours do
-      return helpers.parse_movie(Tmdb::Movie.detail(id)) if type == 'movie'
+      break helpers.parse_movie(Tmdb::Movie.detail(id)) if type == 'movie'
 
       helpers.parse_show(Tmdb::TV.detail(id))
     end
@@ -27,7 +27,7 @@ class StreamController < ApplicationController
       releaseYear: @media.release_date[0..3].to_i,
       imdbId: @media[:imdb_id],
       tmdbId: id,
-    }.compact!
+    }.compact
 
     return unless type == 'show'
 
