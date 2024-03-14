@@ -4,6 +4,8 @@
 
 <h1>Stream Home</h1>
 
+<%= link_to "Search", search_path %>
+
 <section>
   <h2>Trending Media:</h2>
   <%= render partial: "/shared/media_list", locals: { entries: @trending_media } %>
