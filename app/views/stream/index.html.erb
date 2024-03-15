@@ -2,28 +2,43 @@
   <title>Stream - <%= @fancy_title %></title>
 <% end %>
 
-<%# TODO: use @scape_media to scrape for streams %>
-<%# !: for now I am just going to be using vidsrc.to because its easier to implement %>
+<div x-data x-init='$store.player.clear(); getStreams(<%= @scrape_media.to_json.html_safe %>)'>
+  <video id="player" controls>
+    <template x-for="caption in $store.player.stream.captions">
+      <track
+        :label="caption.language"
+        :srclang="caption.language"
+        :src="caption.url">
+    </template>
+  </video>
 
-<% if @media.type == 'movie' %>
-  <iframe src="https://vidsrc.to/embed/movie/<%= @scrape_media.tmdbId %>"></iframe>
-<% else %>
-  <iframe src="https://vidsrc.to/embed/tv/<%= "#{@scrape_media.tmdbId}/#{params[:s]}/#{params[:e]}" %>"></iframe>
-<% end %>
+  <select @change="$store.player.setStream($el.value)">
+    <template x-for="(stream, i) in $store.player.streams">
+      <option x-text="stream.name" :value="i"></option>
+    </template>
+  </select>
+  <select @change="$store.player.setQuality($el.value)">
+    <template x-for="(name, i) in $store.player.qualities">
+      <option x-text="name" :value="i" :selected="i === $store.player.qualityIndex"></option>
+    </template>
+  </select>
+
+  <% if @media.type == 'show' %>
+    <select onchange='Turbo.visit(`/show/<%= params[:id] %>/${this.value}/1`)'>
+      <%= options_for_select(@media.seasons.map { |s| s.fetch_values('name', 'season_number') }, params[:s]) %>
+    </select>
+
+    <select onchange='Turbo.visit(`/show/<%= "#{params[:id]}/#{params[:s]}" %>/${this.value}`)'>
+      <%= options_for_select(@season.episodes.map { |e| ["#{e.episode_number} - #{e.name}", e.episode_number] }, params[:e]) %>
+    </select>
+  <% end %>
+</div>
 
 <h1>
   <%= @fancy_title %>
 </h1>
 
-<% if @media.type == 'show' %>
-  <select onchange='Turbo.visit(`/show/<%= params[:id] %>/${this.value}/1`)'>
-    <%= options_for_select(@media.seasons.map { |s| s.fetch_values('name', 'season_number') }, params[:s]) %>
-  </select>
-
-  <select onchange='Turbo.visit(`/show/<%= "#{params[:id]}/#{params[:s]}" %>/${this.value}`)'>
-    <%= options_for_select(@season.episodes.map { |e| ["#{e.episode_number} - #{e.name}", e.episode_number] }, params[:e]) %>
-  </select>
-<% end %>
+<%= link_to "← return home", root_path %>
 
 <details>
   <summary><h2>Debug Info:</h2></summary>

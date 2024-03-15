@@ -6,7 +6,12 @@
   },
   "dependencies": {
     "@hotwired/turbo-rails": "^8.0.0-beta.1",
-    "@movie-web/providers": "^2.2.0"
+    "@movie-web/providers": "^2.2.0",
+    "@plasmohq/messaging": "^0.6.2",
+    "@types/alpinejs": "^3.13.9",
+    "alpine-turbo-drive-adapter": "^2.1.0",
+    "alpinejs": "^3.13.7",
+    "hls.js": "^1.5.7"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.1",
