@@ -3,7 +3,13 @@
 <% end %>
 
 <div x-data x-init='$store.player.clear(); getStreams(<%= @scrape_media.to_json.html_safe %>)'>
-  <video id="player" controls>
+  <template x-if="$store.player.streams.length === 0">
+    <div>
+      <h2>Scraping...</h2>
+    </div>
+  </template>
+
+  <video id="player" controls poster="<%= @poster %>">
     <template x-for="caption in $store.player.stream.captions">
       <track
         :label="caption.language"
@@ -63,5 +69,10 @@
   <details>
     <summary><h3>Scrape Media:</h3></summary>
     <pre><%= JSON.pretty_generate(@scrape_media) %></pre>
+  </details>
+
+  <details x-data>
+    <summary><h3>Selected Stream:</h3></summary>
+    <pre x-text="JSON.stringify($store.player.stream,null,2)"></pre>
   </details>
 </details>

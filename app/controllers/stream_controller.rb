@@ -10,6 +10,11 @@ class StreamController < ApplicationController
 
     @fancy_title = @media.title
     @fancy_title += " #{params[:s]}-#{params[:e]}" if params[:type] == 'show'
+
+    @poster = "https://image.tmdb.org/t/p/original/#{@media.backdrop_path}"
+    return unless params[:type] == 'show' && @episode.still_path.present?
+
+    @poster = "https://image.tmdb.org/t/p/original/#{@episode.still_path}"
   end
 
   private

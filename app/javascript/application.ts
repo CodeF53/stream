@@ -37,6 +37,9 @@ Alpine.store('player', {
     // ignore HLS streams on devices that don't support them
     if (stream.type === 'hls' && !Hls.isSupported())
       return
+    // ignore IP-locked streams
+    if (stream.flags.includes('ip-locked'))
+      return
 
     this.streams.push({ name, ...stream })
     // start playing from it if this is the first valid stream we found
